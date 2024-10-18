@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
-use Pest\Laravel\actingAs;
-use function Tests\actingAs; // Adjust the namespace if necessary
+use function Pest\Laravel\actingAs;
+// Adjust the namespace if necessary
 
 
 /*

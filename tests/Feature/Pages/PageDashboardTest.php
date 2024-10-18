@@ -37,6 +37,7 @@ it('lists purchased courses', function(){
 
     //Act & Assert
     loginAsUser($user);
+
     get(route('dashboard'))
         ->assertOk()
         ->assertSeeText(
@@ -53,7 +54,7 @@ it('does not list other courses', function(){
     $course = Course::factory()->create();
 
     //Act & Assert
-    $this->actingAs($user);
+    loginAsUser();
 
 
     get(route('dashboard'))
@@ -76,7 +77,8 @@ it('shows latest purchased course first', function(){
     $user->courses()->attach($lastPurchasedCourse,['created_at'=>Carbon::now()]);
 
     //Act & Assert
-    $this->actingAs($user);
+    loginAsUser($user);
+
     get(route('dashboard'))
     ->assertOk()
     ->assertSeeInOrder([
@@ -93,7 +95,8 @@ it('includes link to product videos', function(){
     ->create();
 
     //Act & Assert
-    $this->actingAs($user);
+        loginAsUser($user);
+
         get(route('dashboard'))
         ->assertOk()
         ->assertSeeText('Watch videos')

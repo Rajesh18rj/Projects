@@ -41,12 +41,12 @@ it('gives back successfull response for dashboard page', function(){
 
     //Arrange
     # We need user , coz this is where user going to login
-    $user = User::factory()->create();
+    // $user = User::factory()->create();
 
     //Act & Assert
     # Now we wanna act as a specific user so that laravel knows that we are login with the user when we make a request page
 
-    $this-> actingAs($user);  #pretending to be a user
+    loginAsUser();             #pretending to be a user
 
     get(route('dashboard'))  # making a request to the dashboard page
     ->assertOk();            # Checks if you were allowed - Yes you can enter
