@@ -8,7 +8,7 @@
 
 # Member Can
 
-* Log in (page)
+* Log in (page)  ✅
 * see purchased courses (page) ✅
 * watch purchased course (page)
 

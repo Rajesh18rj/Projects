@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
+use Illuminate\Contracts\Auth\Authenticatable;
 // Adjust the namespace if necessary
 
 
@@ -17,7 +19,7 @@ use function Pest\Laravel\actingAs;
 */
 
 pest()->extend(Tests\TestCase::class)
-    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->use(Illuminate\Foundation\Testing\LazilyRefreshDatabase::class)
     ->in('Feature');
 
 /*
@@ -53,7 +55,8 @@ expect()->extend('toBeOne', function () {
 function loginAsUser(User $user = null): User
 {
     $user = $user ?? User::factory()->create();
-    actingAs($user);
+    /** @var Authenticatable $user */
+    actingAs($user);                  #this indicates to the ide that $user should be treated as an instance of (i was import that in top)
 
     return $user;
 

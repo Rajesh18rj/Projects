@@ -17,6 +17,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', PageDashboardController::class)->name('dashboard');
-    })->name('dashboard');
+
+    //Protect the course videos page route with authentication  
+
     Route::get('videos/{course:slug}', PageVideosController::class)->name('page.course-videos');
+
+});
 

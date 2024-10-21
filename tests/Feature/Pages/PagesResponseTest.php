@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\User;
+use App\Models\Video;
 
 use App\Models\Course;
-
 use function Pest\Laravel\get;
 
 
@@ -13,6 +12,7 @@ use function Pest\Laravel\get;
 //     $response->assertStatus(200);     //then you check if the page is load currectly
 // });
 
+// --- Home Page --- //
 
 it('gives back successful response for home page', function () {
     //Act &Assert
@@ -20,6 +20,8 @@ it('gives back successful response for home page', function () {
         ->assertOK();
 });
 
+
+// --- Course Details Page --- //
 
 it('gives successfull response for the course details page', function(){
     //Arrange
@@ -37,6 +39,9 @@ it('gives successfull response for the course details page', function(){
 
 });
 
+
+// --- Dashboard --- //
+
 it('gives back successfull response for dashboard page', function(){
 
     //Arrange
@@ -46,8 +51,37 @@ it('gives back successfull response for dashboard page', function(){
     //Act & Assert
     # Now we wanna act as a specific user so that laravel knows that we are login with the user when we make a request page
 
-    loginAsUser();             #pretending to be a user
+    loginAsUser();             ## pretending to be a user
 
     get(route('dashboard'))  # making a request to the dashboard page
     ->assertOk();            # Checks if you were allowed - Yes you can enter
 });
+
+
+// --- Registration(JetStream) --- //
+
+it('does not find jetstream registration page', function(){
+    //Act & Assert
+    get('register')->assertNotFound();
+});
+
+
+// --- Videos Page ---//
+
+it('gives successfull response for videos page', function(){
+    //Act
+    # We need course to access this page
+    $course = Course::factory()
+        ->has(Video::factory())
+        ->create();
+        # this says, course have a videos create that (like pretending)
+
+
+    //Act & Assert
+    # if the person can access this page(videos page), they should be logged in , so
+    loginAsUser();
+    get(route('page.course-videos', $course))  #We are going to make a route to our course video page , then we need to provide a course($course this we creating in Arrange method)
+        ->assertOk();
+
+});
+
