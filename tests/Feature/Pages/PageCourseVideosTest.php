@@ -10,7 +10,7 @@ use App\Livewire\VideoPlayer;
 use function Pest\Laravel\get;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
-it('cannot be accessed by guest', function(){
+it('cannot be accessed by guest', function(){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
     // Arrange
     $course = Course::factory()->create();  #We need a course to access this page
 
@@ -19,7 +19,7 @@ it('cannot be accessed by guest', function(){
         ->assertRedirect(route('login'));    #-> this is good to redirect to login page , coz we didnt provide loginAsUser, thats why its redirect the guest to login page
 });
 
-it('include video player', function(){
+it('includes video player', function(){
 
     /* I already know, when we want to show the video - We should need video player . We do this using LiveWire ,
     Coz, there is interactivity like switching the videos or making videos completed and this is perfect use case for livewire*/
@@ -54,10 +54,13 @@ it('shows first course video by default', function(){
 
 it('shows provided course video', function(){
     //Arrange
+
+    /* This time we just not only need course, We also need a video related to the course,
+     coz we want to make sure that we see this video */
     $course = Course::factory()
         ->has(
             Video::factory()
-                ->state(new Sequence(['title'=> 'First video'], ['title' => 'Second video']))
+                ->state(new Sequence(['title'=> 'First video'], ['title' => 'Second video'])) # We are Using this state method , like a placeholder . Now we only want to pass this test
                 ->count(2)
                 )
         ->create();
