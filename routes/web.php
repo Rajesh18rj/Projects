@@ -18,9 +18,9 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', PageDashboardController::class)->name('dashboard');
 
-    //Protect the course videos page route with authentication  
+    //Protect the course videos page route with authentication
 
-    Route::get('videos/{course:slug}', PageVideosController::class)->name('page.course-videos');
+    Route::get('videos/{course:slug}/{video:slug?}', PageVideosController::class)->name('page.course-videos');
 
 });
 
